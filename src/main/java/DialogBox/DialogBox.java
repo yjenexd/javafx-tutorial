@@ -1,6 +1,9 @@
 package DialogBox;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,5 +25,22 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_RIGHT);
 
         this.getChildren().addAll(text, displayPicture);
+    }
+
+    private void flip() {
+        this.setAlignment(Pos.TOP_LEFT); //flip the dialog box to the left side of the screen
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren()); //get the children of the dialog box and store it in a temporary list
+        FXCollections.reverse(tmp); //reverse the order of the children in the temporary list
+        this.getChildren().setAll(tmp);
+    }
+
+    public static DialogBox getUserDialog(String s, Image i) {
+        return new DialogBox(s, i);
+    }
+
+    public static DialogBox getDukeDialog(String s, Image i) {
+        var db = new DialogBox(s, i);
+        db.flip();
+        return db;
     }
 }
